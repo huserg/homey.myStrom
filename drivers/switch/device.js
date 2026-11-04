@@ -53,7 +53,7 @@ module.exports = class SwitchDevice extends BaseDevice {
       .catch((err) => this.logError(`initDevice() > ${err}`));
   }
 
-  // MyHttpDevice
+  // HttpDevice
 
   getBaseURL() {
     return `http://${this.getStoreValue('address')}/`;

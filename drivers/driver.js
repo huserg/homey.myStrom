@@ -1,8 +1,9 @@
 'use strict';
 
-const { MyDriver } = require('my-homey');
+const Homey = require('homey');
+const withLogging = require('../lib/withLogging');
 
-module.exports = class BaseDriver extends MyDriver {
+module.exports = class BaseDriver extends withLogging(Homey.Driver) {
 
   onInit() {
     super.onInit();

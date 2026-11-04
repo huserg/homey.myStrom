@@ -4,7 +4,8 @@ const dns = require('node:dns');
 const dgram = require('node:dgram');
 const { Bonjour } = require('bonjour-service');
 
-const { MyApp } = require('my-homey');
+const Homey = require('homey');
+const withLogging = require('./lib/withLogging');
 
 // see device-types on: https://api.mystrom.ch/#51094bbb-3807-47d2-b60e-dabf757d1f8e
 // eslint-disable-next-line no-unused-vars
@@ -24,7 +25,7 @@ const DEVICE_TYPE = {
   122: 'Switch Ex',
 };
 
-module.exports = class MyStromApp extends MyApp {
+module.exports = class MyStromApp extends withLogging(Homey.App) {
 
   #devices = {};
 
@@ -74,7 +75,7 @@ module.exports = class MyStromApp extends MyApp {
       }
     });
     browser
-      .on('error', (err) => this.notifyError(`Bonjour: ${err}`))
+      .on('error', (err) => this.logError(`Bonjour: ${err}`))
       .start();
 
     const udpClient = dgram.createSocket('udp4', (msg, rinfo) => {
@@ -111,7 +112,7 @@ module.exports = class MyStromApp extends MyApp {
       });
     });
     udpClient
-      .on('error', (err) => this.notifyError(`UDP-Client: ${err}`))
+      .on('error', (err) => this.logError(`UDP-Client: ${err}`))
       .bind(7979);
   }
 

@@ -1,8 +1,8 @@
 'use strict';
 
-const { MyHttpDevice } = require('my-homey');
+const HttpDevice = require('../lib/HttpDevice');
 
-module.exports = class BaseDevice extends MyHttpDevice {
+module.exports = class BaseDevice extends HttpDevice {
 
   #refreshDeviceInterval = null;
 
@@ -44,7 +44,7 @@ module.exports = class BaseDevice extends MyHttpDevice {
     }
   }
 
-  // MyHttpDevice
+  // HttpDevice
 
   getBaseURL() {
     return `http://${this.getStoreValue('address')}/api/v1/`;
